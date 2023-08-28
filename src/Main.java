@@ -30,6 +30,8 @@ public class Main {
         // J'affiche les résultats
         DisplayResult(teamsList);
 
+        SelectionPokemons(teamsList);
+
         // Séléction de 2 équipes alétoires
 
         // Combat entre les deux équipes
@@ -44,8 +46,7 @@ public class Main {
         // Afficher les résultats des combats
 
 
-
-    }
+   }
 
     private static void DisplayResult(List<Team> teamsList) {
         for (int i = 0; i < teamsList.size(); i++) {
@@ -106,7 +107,7 @@ public class Main {
 
         }
         // Affiche le nombre de groupes
-        System.out.println(countGroup + " ont été créés");
+        System.out.println(countGroup + " groupes ont été créés");
     }
 
     private static void FillListsFromImportedDatasetFromJson(List<Pokemon> pokemonList, List<String> colorList) throws IOException, ParseException {
@@ -162,4 +163,35 @@ public class Main {
             */
         }
     }
+
+    public static void SelectionPokemons(List<Team>teamsList){
+
+
+        Random random = new Random();
+        List<Pokemon> warriors = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+
+            // Recupération de l'équipe séléctionnée aléatoirement dans teamsList
+            int randomTeamIndex = random.nextInt(teamsList.size());
+            Team randomTeam = teamsList.get(randomTeamIndex);
+
+            // Récupération de la liste des pokemons da l'équipe séléctionnée
+            List<Pokemon> twoGroupPokeToFight = randomTeam.getPokemonsList();
+
+                // Récupération du pokemon séléctionnée aléatoirement à partir de la liste twoGroupePokeTofight
+                int randomPokemonIndex = random.nextInt(twoGroupPokeToFight.size());
+                Pokemon randomPokemon = twoGroupPokeToFight.get(randomPokemonIndex);
+
+                // Ajout de mes deux pokemons dans la liste warriors
+                warriors.add(randomPokemon);
+
+                // Retire le Pokemon de l'équipe pour éviter les doublons
+                twoGroupPokeToFight.remove(randomPokemonIndex);
+
+        }
+
+        System.out.println("----------" + warriors + "----------");
+    }
+
 }
